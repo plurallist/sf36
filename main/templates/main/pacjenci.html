@@ -1,0 +1,16 @@
+{% extends "main/base.html" %}
+{% block content %}
+<h1>Pacjenci</h1> <br>
+<p>{{lista_pacjentow.imie}}</p>
+    <ul>
+    {% for pacjent in lista_pacjentow %}
+        <li>{{pacjent.pesel}}</li>
+            <ul><p>Wyniki ankiety:</p>
+                {% for ankieta in pacjent.sf36_set.all %}
+                    <li><p>Obecność bólu: {{ankieta.obecnosc_bolu}}</p></li>
+                    <li><p>Natężenie bólu: {{ankieta.skala_bolu}}</p></li>
+                {% endfor %}
+            </ul>
+    {% endfor %}
+    </ul>
+{% endblock %}

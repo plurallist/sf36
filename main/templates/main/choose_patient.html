@@ -1,0 +1,38 @@
+{% extends "main/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="container text-center">
+  <div class="row align-items-center">
+    <div class="col">
+        <div class="card">
+              <h5 class="card-header">Utwórz pacjenta</h5>
+              <div class="card-body">
+                <h5 class="card-title">Stwórz nowego pacjenta</h5>
+                <p class="card-text">Na tej stronie utworzysz konto nowego pacjenta w bazie danych. Pamiętaj o zapisaniu ID!</p>
+                <a href="/create_patient/" class="btn btn-primary" role="button">Nowy pacjent</a>
+              </div>
+            </div>
+    </div>
+    <div class="col">
+        <div class="card">
+              <h5 class="card-header">Wybierz pacjenta</h5>
+              <div class="card-body">
+                <h5 class="card-title">Wybierz pacjenta, który będzie wypełniał ankietę</h5>
+                <p class="card-text">Wybranie pacjenta za pomocą fizycznego ID spowoduje przejście do kwestionariusza SF-36.</p>
+                          <form method="get" action="/new_sf36/" class="form-group">
+            <!--{% csrf_token %}-->
+            <select name="pacjent_wybrany" id="wybor_pacjenta" class="form-select" aria-label="multiple select example" value="NaN" required>
+                {% for p in ls_patient %}
+                <option value="{{p.pacjent_id}}">{{p}}</option>
+                {% endfor %}
+            </select>
+            <br>
+            <button type="submit" class="btn btn-primary">Wybierz</button>
+        </form>
+              </div>
+            </div>
+
+    </div>
+  </div>
+</div>
+{% endblock %}

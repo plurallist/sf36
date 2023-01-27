@@ -1,0 +1,12 @@
+{% extends "main/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+<h3>Wypełnij ankietę SF-36</h3> <br>
+<form method="post" action="/patient/" class="form-group">
+{% csrf_token %}
+    {{arkusz|crispy}}
+<div class="input-group mb-3">
+        <button type="submit" name="save" class="btn btn-success">Zapisz ankietę</button>
+</div>
+</form>
+{% endblock %}

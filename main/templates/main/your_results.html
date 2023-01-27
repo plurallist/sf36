@@ -1,0 +1,89 @@
+{% extends "main/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<div class="container text-center">
+    <div class="row align-items-center">
+        <div class="col">
+            <h3>Wybierz pacjenta</h3>
+        </div>
+    </div>
+    <!-- " !-->
+    <div class="row align-items-center">
+        <div class="col">
+        <form method="get" action="/your_results/" class="form-group">
+            <select name="pacjent_wybrany" id="wybor_pacjenta" class="form-select" aria-label="multiple select example" value="NaN" onChange="form.submit();">
+                <option hidden disabled selected value>Wybierz pacjenta</option>
+                {% for p in ls_patient %}
+                <option value="{{p.pacjent_id}}">{{p}}</option>
+                {% endfor %}
+            </select>
+        </form>
+        </div>
+    </div>
+            <br>
+            {% if wybrany %}
+
+    <div class="row align-items-center">
+        <div class="col">
+            <h3>ID pacjenta: {{pacjent_wybrany}}</h3>
+        </div>
+    </div>
+    <br>
+    <div class="row align-items-center">
+        <div class="col">
+            <h3>Wybierz ankietę</h3>
+        </div>
+    </div>
+    <div class="row align-items-center">
+        <div class="col">
+        <form method="get" action="/your_results/" class="form-group">
+            {% if ankiety_obecne %}
+            <select name="ankieta_wybrana" id="wybor_ankiet" class="form-select" aria-label="multiple select example" value="NaN" onChange="form.submit();">
+                <option hidden disabled selected value>Wybierz ankietę</option>
+                {% for a in ls_ankiet %}
+                <option value="{{a.id}}_{{pacjent_wybrany}}">{{a}}</option>
+                {% endfor %}
+            </select>
+            {% else %}
+            <select name="zablokowane" id="zablokowane" class="form-select" aria-label="multiple select example" value="NaN" disabled>
+                <option>Brak ankiet</option>
+            </select>
+            {% endif %}
+        </form>
+        </div>
+    </div>
+    {% if ankieta_wybrana %}
+    <br>
+    <div class="row align-items-center">
+        <div class="col">
+          <h4>Ankieta z dnia {{ankieta_wybrana_data}}</h4>
+        </div>
+    </div>
+    <br>
+    <div class="row align-items-center">
+        <div class="col">
+            <table class="table">
+              <thead class="thead-dark">
+                <tr>
+                  <th scope="col">Zmienna</th>
+                  <th scope="col">Wynik</th>
+                </tr>
+              </thead>
+              <tbody>
+              {% for x, y in sf36_zmienne.items %}
+                <tr>
+                  <th scope="row">{{x}}</th>
+                  <td>{{y}}</td>
+                </tr>
+              {% endfor %}
+              </tbody>
+            </table>
+        </div>
+    </div>
+    {% endif %}
+    {% endif %}
+    </div>
+</div>
+
+{% endblock %}

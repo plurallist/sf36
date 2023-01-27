@@ -1,0 +1,40 @@
+{% extends "main/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<div class="container text-center">
+    <div class="row align-items-center">
+        <div class="col">
+            <h3>Jesteś zalogowany jako: </h3>
+        </div>
+        <div class ="col">
+            <h4>{{lekarz}}</h4>
+        </div>
+    </div>
+    <form method="post" action="/create_patient/" class="form-group">
+        {% csrf_token %}
+      <div class="row align-items-center">
+        <div class="col">
+            <h4>Wybierz rozpoznanie pacjenta:</h4>
+        </div>
+        <div class="col">
+            <select name="choroba_wybrana" id="wybor_choroby" class="form-select" multiple aria-label="multiple select example" value="NaN" required>
+                {% for p in ls_chorob %}
+                <option value="{{p}}">{{p}}</option>
+                {% endfor %}
+            </select>
+        </div>
+      </div>
+        <div class="row align-items-center">
+            <div class="col">
+                <h4>ID pacjenta zostanie wybrane automatycznie!</h4>
+            </div>
+        </div>
+      <div class="row justify-content-md-center mt-3">
+        <div class="col-md-auto">
+          <button type="submit" class="btn btn-primary">Zapisz</button>
+        </div>
+      </div>
+    </form>
+</div>
+{% endblock %}

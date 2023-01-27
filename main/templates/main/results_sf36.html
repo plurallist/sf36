@@ -1,0 +1,32 @@
+{% extends "main/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<div class="container text-center">
+    <div class="row align-items-center">
+        <div class="col">
+            <div class="card">
+              <h5 class="card-header">Wszyscy pacjenci</h5>
+              <div class="card-body">
+                <h5 class="card-title">Uzyskaj dane wielu pacjentów</h5>
+                <p class="card-text">Na tej stronie uzyskasz dowolną ilość ankiet pacjentów z bazy danych.</p>
+                <a href="/all_results" class="btn btn-primary">Wszyscy pacjenci</a>
+              </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card">
+              <h5 class="card-header">Twoi pacjenci</h5>
+              <div class="card-body">
+                <h5 class="card-title">Uzyskaj dane twojego pacjenta</h5>
+                <p class="card-text">Na tej stronie uzyskasz ankietę twojego pacjenta.</p>
+                <a href="/your_results" class="btn btn-primary">Twoi pacjenci</a>
+              </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock %}

@@ -1,0 +1,38 @@
+{% extends "main/base.html" %}
+
+{% block content %}
+<div class="container text-center">
+    <div class="row align-items-center">
+        <div class="col">
+            <h3>Wszyscy pacjenci</h3>
+            <br>
+        </div>
+    </div>
+    <div class="row align-items-center">
+        <div class="col">
+            <table class="table">
+              <thead class="thead-dark">
+                <tr>
+                    <th scope="col">ID pacjenta</th>
+                    <th scope="col">Wypełnionych ankiet</th>
+                    <th scope="col">Ostatnia ankieta</th>
+                </tr>
+              </thead>
+              <tbody>
+              {% for x,y in ostatnia_ankieta.items %}
+                <tr>
+                  <th scope="row">{{x}}</th>
+                    {% for item in y %}
+                  <td>{{item}}</td>
+                    {% endfor %}
+                </tr>
+              {% endfor %}
+              </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock %}

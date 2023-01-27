@@ -1,0 +1,10 @@
+{% extends "main/base.html" %}
+
+{% block content %}
+Wprowadź pacjenta <br>
+<form method="post" action="/create/">
+{% csrf_token %}
+{{form.as_p}}
+<button type="submit", name="save">Zapisz pacjenta</button>
+</form>
+{% endblock %}

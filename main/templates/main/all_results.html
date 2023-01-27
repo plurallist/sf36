@@ -1,0 +1,122 @@
+{% extends "main/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<div class="container text-center">
+    <div class="row align-items-center">
+        <div class="col">
+            <div class="accordion" id="accordionExample">
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="headingOne">
+                  <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                    Pobieranie ankiet
+                  </button>
+                </h2>
+                <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                  <div class="accordion-body">
+                    <strong>Tu możesz pobrać dowolne dane z ankiet.</strong> Wpisz ID pacjentów przedzielając pozycje przecinkiem (np. 1, 4, 5) lub, aby podać przedział, użyj dwukropka (np. 5:7 = 5, 6, 7). Wybierz przedział czasowy, którego dotyczą ankiety. Domyślnie zamieszczane są surowe dane z ankiety. Aby pobrać dane przeliczone zgodnie z instrukcją, zaznacz odpowiednie pole.
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+    </div>
+    <form method="post" action="/all_results/" class="form-group form-inline">
+        {% csrf_token %}
+    <div class="row align-items-center">
+        <div class="col">
+            <div class="input-group mb-3">
+              <span class="input-group-text" id="basic-addon1">ID</span>
+              <input type="text" class="form-control" name="id" placeholder="Wybierz ID" aria-label="Username" aria-describedby="basic-addon1">
+            </div>
+        </div>
+    </div>
+    <div class="row align-items-center">
+        <div class="col">
+            <div class="input-group input-daterange">
+              <span class="input-group-text">Od</span>
+              <input type="text" name="start" class="form-control" value="2023-01-01">
+              <span class="input-group-text">do</span>
+              <input type="text" name="finish" class="form-control" value="2023-01-01">
+            </div>
+                <!-- Script -->
+                <script type="text/javascript">
+                var userTarget = "";
+                var exit = false;
+                $('.input-daterange').datepicker({
+                  format: "yyyy-mm-dd",
+                  weekStart: 1,
+                  language: "en",
+                  daysOfWeekHighlighted: "0,6",
+                  startDate: "01-01-2017",
+                  orientation: "bottom auto",
+                  autoclose: true,
+                  showOnFocus: true,
+                  maxViewMode: 'days',
+                  keepEmptyValues: true,
+                  templates: {
+                    leftArrow: '&lt;',
+                    rightArrow: '&gt;'
+                  }
+                });
+                $('.input-daterange').focusin(function(e) {
+                  userTarget = e.target.name;
+                });
+                $('.input-daterange').on('changeDate', function(e) {
+                  if (exit) return;
+                  if (e.target.name != userTarget) {
+                    exit = true;
+                    $(e.target).datepicker('clearDates');
+                  }
+                  exit = false;
+                });
+                </script>
+        </div>
+    </div>
+        <br>
+    <div class="row">
+        <div class="col text-start">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="True" name="recounted_data"  id="flexCheckChecked">
+              <label class="form-check-label" for="flexCheckChecked">
+                Przeliczone wartości
+              </label>
+            </div>
+        </div>
+    </div>
+    <div class="row justify-content-md-center mt-3">
+        <div class="col-md-auto">
+          <button type="submit" class="btn btn-primary" id="PobierzBtn">Pobierz</button>
+        </div>
+    </div>
+    </div>
+    </form>
+    {% if sukces == False %}
+    <!-- Flexbox container for aligning the toasts -->
+        <div aria-live="polite" aria-atomic="true" class="d-flex justify-content-center align-items-center" style="min-height: 200px;">
+
+          <!-- Then put toasts within -->
+          <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+          <div class="toast-header">
+            <strong class="me-auto">Błąd</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+          </div>
+          <div class="toast-body">
+              {% if pacjent_istnieje == False %}
+              Wybrano nieprawidłowe ID pacjenta/ów!
+              {% else %}
+                Brak ankiet w tym przedziale!
+              {% endif %}
+          </div>
+        </div>
+    {% endif %}
+
+<script>
+$(document).ready(function(){
+  $('.toast').toast('show');
+});
+</script>
+
+
+
+{% endblock %}
