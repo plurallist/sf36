@@ -1,0 +1,1 @@
+web: gunicorn sf36.wsgi:application
