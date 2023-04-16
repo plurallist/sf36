@@ -64,7 +64,7 @@ def new_sf36(response):
                 n_recoded.save()
                 print("Zapisano ankietę o id: {}, dla pacjenta: {}".format(n.id, n.pacjent_id))
                 print(n.data_wypelnienia)
-                return render(response, "main/new_sf36.html", {"pytania": pytania, "nowa_ankieta": True})
+                return render(response, "main/succes.html", {"pytania": pytania, "nowa_ankieta": True})
         return render(response, "main/new_sf36.html", {"pytania": pytania})
     else:
         return HttpResponseRedirect("/login")

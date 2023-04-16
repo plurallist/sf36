@@ -1,190 +1,311 @@
-{% extends "main/base.html" %}
-{% load crispy_forms_tags %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+    .carousel-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      width: 100vw;
+    }
+    .carousel {
+      width: 100%;
+    }
+    .carousel-item {
+      width: calc(100% - 100px);
+    }
+    .form-check-input[type="radio"] {
+      width: 1.5em;
+      height: 1.5em;
+    }
+    .table-container {
+        max-width: 80%;
+        margin: 0 auto;
+    }
+    .form-check-label {
+      margin-left: 1.5em;
+      font-size: 1.25em;
+    }
+    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>SF-36</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+</head>
+<body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script><!-- full screen mobile friendly sf-36 questionnaire -->
+<!-- carousel bootstrap 5 full screen -->
+
 {% block content %}
 
-{% if nowa_ankieta == True %}
-<!-- Flexbox container for aligning the toasts -->
-<div aria-live="polite" aria-atomic="true" class="d-flex justify-content-center align-items-center w-100">
-          <!-- Then put toasts within -->
-          <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="false">
-          <div class="toast-header">
-            <strong class="me-auto">Sukces</strong>
-            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-          </div>
-          <div class="toast-body">
-              Zapisano nową ankietę!
-          </div>
-        </div>
-    </div>
-</div>
-<br>
-{% else %}
-    <h3>Wypełnij ankietę SF-36</h3> <br>
-{% endif %}
-
-    <script>
-    $(document).ready(function(){
-      $('.toast').toast('show');
-    });
-    </script>
 <form method="post" action="/new_sf36/" class="from-group">
 {% csrf_token %}
-<div class="container text-center">
-  <div class="row justify-content-md-center mt-3">
-    <div class="col-md-auto">
-      <b>1. {{pytania.1}}</b>
+<div class="carousel-container">
+<div id="carouselExample" class="carousel carousel-dark slide">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="d-flex justify-content-center">
+                        <div class="row">
+                          <h3><b>1. {{pytania.1}}</b></h3>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <div class="row">
+                        <div class="form-group">
+                        <div class="form-check">
+                            <div class="form-check form-check-inline">
+                              <input class="form-check-input" type="radio" name="stan_zdrowia" id="stan_zdrowia-1" value="1">
+                              <label class="form-check-label" for="stan_zdrowia-1">Doskonały</label>
+                            </div>
+                        </div>
+                      <div class="form-check">
+                            <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="stan_zdrowia" id="stan_zdrowia-2" value="2">
+                        <label class="form-check-label" for="stan_zdrowia-2">Bardzo dobry</label>
+                            </div>
+                        </div>
+                      <div class="form-check">
+                            <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="stan_zdrowia" id="stan_zdrowia-3" value="3">
+                        <label class="form-check-label" for="stan_zdrowia-3">Dobry</label>
+                          </div>
+                        </div>
+                        <div class="form-check">
+                            <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="stan_zdrowia" id="stan_zdrowia-4" value="4">
+                        <label class="form-check-label" for="stan_zdrowia-4">Zadowalający</label>
+                          </div>
+                        </div>
+                      <div class="form-check">
+                            <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="stan_zdrowia" id="stan_zdrowia-5" value="5">
+                        <label class="form-check-label" for="stan_zdrowia-5">Niezadowalający</label>
+                          </div>
+                        </div>
+                    </div>
+                    </div>
+                        </div>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
-  <div class="row justify-content-md-center mt-3">
-    <div class="col-md-auto">
-      <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="stan_zdrowia" id="stan_zdrowia-1" value="1" required>
-        <label class="form-check-label" for="stan_zdrowia-1">Doskonały</label>
-      </div>
-      <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="stan_zdrowia" id="stan_zdrowia-2" value="2">
-        <label class="form-check-label" for="stan_zdrowia-2">Bardzo dobry</label>
-      </div>
-      <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="stan_zdrowia" id="stan_zdrowia-3" value="3">
-        <label class="form-check-label" for="stan_zdrowia-3">Dobry</label>
-      </div>
-      <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="stan_zdrowia" id="stan_zdrowia-4" value="4">
-        <label class="form-check-label" for="stan_zdrowia-4">Zadowalający</label>
-      </div>
-      <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="stan_zdrowia" id="stan_zdrowia-5" value="5">
-        <label class="form-check-label" for="stan_zdrowia-5">Niezadowalający</label>
-      </div>
+    <div class="carousel-item">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="d-flex justify-content-center">
+                        <div class="row">
+                            <h3><b>2. {{pytania.2}}</b></h3>
+                            </div>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <div class="row">
+                        <div class="form-group">
+                        <div class="form-check">
+                              <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="stan_zdrowia_porownanie" id="stan_zdrowia_porownanie-1" value="1">
+                                <label class="form-check-label" for="stan_zdrowia_porownanie-1">Dużo lepiej niż rok temu</label>
+                              </div>
+                            </div>
+                            <div class="form-check">
+                              <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="stan_zdrowia_porownanie" id="stan_zdrowia_porownanie-2" value="2">
+                                <label class="form-check-label" for="stan_zdrowia_porownanie-2">Trochę lepiej teraz niż rok temu</label>
+                              </div>
+                                </div>
+                            <div class="form-check">
+                              <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="stan_zdrowia_porownanie" id="stan_zdrowia_porownanie-3" value="3">
+                                <label class="form-check-label" for="stan_zdrowia_porownanie-3">Bardzo podobnie jak rok temu</label>
+                              </div>
+                                </div>
+                            <div class="form-check">
+                              <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="stan_zdrowia_porownanie" id="stan_zdrowia_porownanie-4" value="4">
+                                <label class="form-check-label" for="stan_zdrowia_porownanie-4">Trochę gorzej niż rok temu</label>
+                              </div>
+                                </div>
+                            <div class="form-check">
+                              <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="stan_zdrowia_porownanie" id="stan_zdrowia_porownanie-5" value="5">
+                                <label class="form-check-label" for="stan_zdrowia_porownanie-5">Dużo gorzej niż rok temu</label>
+                              </div>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
-  <div class="row justify-content-md-center mt-3">
-    <div class="col-md-auto">
-      <b>2. {{pytania.2}}</b>
     </div>
-  </div>
-  <div class="row justify-content-md-center mt-3">
-    <div class="col-md-auto">
-      <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="stan_zdrowia_porownanie" id="stan_zdrowia_porownanie-1" value="1" required>
-        <label class="form-check-label" for="stan_zdrowia_porownanie-1">Dużo lepiej niż rok temu</label>
-      </div>
-      <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="stan_zdrowia_porownanie" id="stan_zdrowia_porownanie-2" value="2">
-        <label class="form-check-label" for="stan_zdrowia_porownanie-2">Trochę lepiej teraz niż rok temu</label>
-      </div>
-      <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="stan_zdrowia_porownanie" id="stan_zdrowia_porownanie-3" value="3">
-        <label class="form-check-label" for="stan_zdrowia_porownanie-3">Bardzo podobnie jak rok temu</label>
-      </div>
-      <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="stan_zdrowia_porownanie" id="stan_zdrowia_porownanie-4" value="4">
-        <label class="form-check-label" for="stan_zdrowia_porownanie-4">Trochę gorzej niż rok temu</label>
-      </div>
-      <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="stan_zdrowia_porownanie" id="stan_zdrowia_porownanie-5" value="5">
-        <label class="form-check-label" for="stan_zdrowia_porownanie-5">Dużo gorzej niż rok temu</label>
-      </div>
+    <div class="carousel-item">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="text-center">
+                        <div class="col-md-auto">
+                            <h3><b>3. {{pytania.3}}</b></h3>
+                            <div class="table-container">
+                            <table class="table">
+                                <thead class="table-dark">
+                                  <tr>
+                                    <th>#</th>
+                                    <th>Czynności</th>
+                                    <th>Bardzo ogranicza</th>
+                                    <th>Trochę ogranicza</th>
+                                    <th>Nie ogranicza wcale</th>
+                                   </tr>
+                                </thead>
+                                <tbody>
+                                  <tr>
+                                      <td>1</td>
+                                      <td>czynności wymagające energii, takie jak: bieganie, podnoszenie ciężarów,
+                                          uczestniczenie w sportach wymagających dużego zaangażowania </td>
+                                      <td><input class="form-check-input" type="radio" name="bieganie" id="bieganie-1" value="1"></td>
+                                      <td><input class="form-check-input" type="radio" name="bieganie" id="bieganie-2" value="2"></td>
+                                      <td><input class="form-check-input" type="radio" name="bieganie" id="bieganie-3" value="3"></td>
+                                  </tr>
+                                  <tr>
+                                      <td>2</td>
+                                      <td>czynności o umiarkowanej trudności, takie jak: przesuwanie stołu,
+                                          odkurzanie, gra w kręgle lub golfa </td>
+                                      <td><input class="form-check-input" type="radio" name="umiarkowana_aktywnosc" id="umiarkowana_aktywnosc-1" value="1"></td>
+                                      <td><input class="form-check-input" type="radio" name="umiarkowana_aktywnosc" id="umiarkowana_aktywnosc-2" value="2"></td>
+                                      <td><input class="form-check-input" type="radio" name="umiarkowana_aktywnosc" id="umiarkowana_aktywnosc-3" value="3"></td>
+                                  </tr>
+                                  <tr>
+                                      <td>3</td>
+                                      <td>podnoszenie lub dźwiganie zakupów</td>
+                                      <td><input class="form-check-input" type="radio" name="zakupy" id="zakupy-1" value="1"></td>
+                                      <td><input class="form-check-input" type="radio" name="zakupy" id="zakupy-2" value="2"></td>
+                                      <td><input class="form-check-input" type="radio" name="zakupy" id="zakupy-3" value="3"></td>
+                                  </tr>
+                                  <tr>
+                                      <td>4</td>
+                                      <td>pokonywanie kilku pięter schodów</td>
+                                      <td><input class="form-check-input" type="radio" name="kilka_pieter" id="kilka_pieter-1" value="1"></td>
+                                      <td><input class="form-check-input" type="radio" name="kilka_pieter" id="kilka_pieter-2" value="2"></td>
+                                      <td><input class="form-check-input" type="radio" name="kilka_pieter" id="kilka_pieter-3" value="3"></td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
     </div>
-  </div>
-  <div class="row justify-content-md-center mt-3">
-    <div class="col-md-auto">
-      <b>3. {{pytania.3}}</b>
+      <div class="carousel-item">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="text-center">
+                        <div class="col-md-auto">
+                            <h3><b>3. {{pytania.3}}</b></h3>
+                            <div class="table-container">
+                            <table class="table">
+                                <thead class="table-dark">
+                                  <tr>
+                                    <th>#</th>
+                                    <th>Czynności</th>
+                                    <th>Bardzo ogranicza</th>
+                                    <th>Trochę ogranicza</th>
+                                    <th>Nie ogranicza wcale</th>
+                                   </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                      <td>5</td>
+                                      <td>pokonywanie jednego piętra schodów</td>
+                                      <td><input class="form-check-input" type="radio" name="pietro" id="pietro-1" value="1"></td>
+                                      <td><input class="form-check-input" type="radio" name="pietro" id="pietro-2" value="2"></td>
+                                      <td><input class="form-check-input" type="radio" name="pietro" id="pietro-3" value="3"></td>
+                                  </tr>
+                                <tr>
+                                      <td>6</td>
+                                      <td>schylanie się lub przyklękanie</td>
+                                      <td><input class="form-check-input" type="radio" name="schylanie" id="schylanie-1" value="1"></td>
+                                      <td><input class="form-check-input" type="radio" name="schylanie" id="schylanie-2" value="2"></td>
+                                      <td><input class="form-check-input" type="radio" name="schylanie" id="schylanie-3" value="3"></td>
+                                  </tr>
+                                <tr>
+                                      <td>7</td>
+                                      <td>spacer dłuższy niż 1 km</td>
+                                      <td><input class="form-check-input" type="radio" name="spacer_1km" id="spacer_1km-1" value="1"></td>
+                                      <td><input class="form-check-input" type="radio" name="spacer_1km" id="spacer_1km-2" value="2"></td>
+                                      <td><input class="form-check-input" type="radio" name="spacer_1km" id="spacer_1km-3" value="3"></td>
+                                  </tr>
+                                <tr>
+                                      <td>8</td>
+                                      <td>spacer ok. 500 m</td>
+                                      <td><input class="form-check-input" type="radio" name="spacer_500m" id="spacer_500m-1" value="1"></td>
+                                      <td><input class="form-check-input" type="radio" name="spacer_500m" id="spacer_500m-2" value="2"></td>
+                                      <td><input class="form-check-input" type="radio" name="spacer_500m" id="spacer_500m-3" value="3"></td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
     </div>
-  </div>
-  <div class="row justify-content-md-center mt-3">
-    <div class="col-md-auto">
-          <table class="table">
-            <thead class="table-dark">
-              <tr>
-                <th>#</th>
-                <th>Czynności</th>
-                <th>Bardzo ogranicza</th>
-                <th>Trochę ogranicza</th>
-                <th>Nie ogranicza wcale</th>
-               </tr>
-            </thead>
-            <tbody>
-              <tr>
-                  <td>1</td>
-                  <td>czynności wymagające energii, takie jak: bieganie, podnoszenie ciężarów,
-                      uczestniczenie w sportach wymagających dużego zaangażowania </td>
-                  <td><input class="form-check-input" type="radio" name="bieganie" id="bieganie-1" value="1" required></td>
-                  <td><input class="form-check-input" type="radio" name="bieganie" id="bieganie-2" value="2"></td>
-                  <td><input class="form-check-input" type="radio" name="bieganie" id="bieganie-3" value="3"></td>
-              </tr>
-              <tr>
-                  <td>2</td>
-                  <td>czynności o umiarkowanej trudności, takie jak: przesuwanie stołu,
-                      odkurzanie, gra w kręgle lub golfa </td>
-                  <td><input class="form-check-input" type="radio" name="umiarkowana_aktywnosc" id="umiarkowana_aktywnosc-1" value="1" required></td>
-                  <td><input class="form-check-input" type="radio" name="umiarkowana_aktywnosc" id="umiarkowana_aktywnosc-2" value="2"></td>
-                  <td><input class="form-check-input" type="radio" name="umiarkowana_aktywnosc" id="umiarkowana_aktywnosc-3" value="3"></td>
-              </tr>
-              <tr>
-                  <td>3</td>
-                  <td>podnoszenie lub dźwiganie zakupów</td>
-                  <td><input class="form-check-input" type="radio" name="zakupy" id="zakupy-1" value="1" required></td>
-                  <td><input class="form-check-input" type="radio" name="zakupy" id="zakupy-2" value="2"></td>
-                  <td><input class="form-check-input" type="radio" name="zakupy" id="zakupy-3" value="3"></td>
-              </tr>
-              <tr>
-                  <td>4</td>
-                  <td>pokonywanie kilku pięter schodów</td>
-                  <td><input class="form-check-input" type="radio" name="kilka_pieter" id="kilka_pieter-1" value="1" required></td>
-                  <td><input class="form-check-input" type="radio" name="kilka_pieter" id="kilka_pieter-2" value="2"></td>
-                  <td><input class="form-check-input" type="radio" name="kilka_pieter" id="kilka_pieter-3" value="3"></td>
-              </tr>
-            <tr>
-                  <td>5</td>
-                  <td>pokonywanie jednego piętra schodów</td>
-                  <td><input class="form-check-input" type="radio" name="pietro" id="pietro-1" value="1" required></td>
-                  <td><input class="form-check-input" type="radio" name="pietro" id="pietro-2" value="2"></td>
-                  <td><input class="form-check-input" type="radio" name="pietro" id="pietro-3" value="3"></td>
-              </tr>
-            <tr>
-                  <td>6</td>
-                  <td>schylanie się lub przyklękanie</td>
-                  <td><input class="form-check-input" type="radio" name="schylanie" id="schylanie-1" value="1" required></td>
-                  <td><input class="form-check-input" type="radio" name="schylanie" id="schylanie-2" value="2"></td>
-                  <td><input class="form-check-input" type="radio" name="schylanie" id="schylanie-3" value="3"></td>
-              </tr>
-            <tr>
-                  <td>7</td>
-                  <td>spacer dłuższy niż 1 km</td>
-                  <td><input class="form-check-input" type="radio" name="spacer_1km" id="spacer_1km-1" value="1" required></td>
-                  <td><input class="form-check-input" type="radio" name="spacer_1km" id="spacer_1km-2" value="2"></td>
-                  <td><input class="form-check-input" type="radio" name="spacer_1km" id="spacer_1km-3" value="3"></td>
-              </tr>
-            <tr>
-                  <td>8</td>
-                  <td>spacer ok. 500 m</td>
-                  <td><input class="form-check-input" type="radio" name="spacer_500m" id="spacer_500m-1" value="1" required></td>
-                  <td><input class="form-check-input" type="radio" name="spacer_500m" id="spacer_500m-2" value="2"></td>
-                  <td><input class="form-check-input" type="radio" name="spacer_500m" id="spacer_500m-3" value="3"></td>
-              </tr>
-            <tr>
-                  <td>9</td>
-                  <td>spacer ok. 100 m</td>
-                  <td><input class="form-check-input" type="radio" name="spacer_100m" id="spacer_100m-1" value="1" required></td>
-                  <td><input class="form-check-input" type="radio" name="spacer_100m" id="spacer_100m-2" value="2"></td>
-                  <td><input class="form-check-input" type="radio" name="spacer_100m" id="spacer_100m-3" value="3"></td>
-              </tr>
-            <tr>
-                  <td>10</td>
-                  <td>kąpiel lub ubieranie się</td>
-                  <td><input class="form-check-input" type="radio" name="ubieranie" id="ubieranie-1" value="1" required></td>
-                  <td><input class="form-check-input" type="radio" name="ubieranie" id="ubieranie-2" value="2"></td>
-                  <td><input class="form-check-input" type="radio" name="ubieranie" id="ubieranie-3" value="3"></td>
-            </tr>
-            </tbody>
-          </table>
+      <div class="carousel-item">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="text-center">
+                        <div class="col-md-auto">
+                            <h3><b>3. {{pytania.3}}</b></h3>
+                            <div class="table-container">
+                            <table class="table">
+                                <thead class="table-dark">
+                                  <tr>
+                                    <th>#</th>
+                                    <th>Czynności</th>
+                                    <th>Bardzo ogranicza</th>
+                                    <th>Trochę ogranicza</th>
+                                    <th>Nie ogranicza wcale</th>
+                                   </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                          <td>9</td>
+                                          <td>spacer ok. 100 m</td>
+                                          <td><input class="form-check-input" type="radio" name="spacer_100m" id="spacer_100m-1" value="1"></td>
+                                          <td><input class="form-check-input" type="radio" name="spacer_100m" id="spacer_100m-2" value="2"></td>
+                                          <td><input class="form-check-input" type="radio" name="spacer_100m" id="spacer_100m-3" value="3"></td>
+                                      </tr>
+                                    <tr>
+                                          <td>10</td>
+                                          <td>kąpiel lub ubieranie się</td>
+                                          <td><input class="form-check-input" type="radio" name="ubieranie" id="ubieranie-1" value="1"></td>
+                                          <td><input class="form-check-input" type="radio" name="ubieranie" id="ubieranie-2" value="2"></td>
+                                          <td><input class="form-check-input" type="radio" name="ubieranie" id="ubieranie-3" value="3"></td>
+                                    </tr>
+                                </tbody>
+                              </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
     </div>
-  </div>
-  <div class="row justify-content-md-center mt-3">
-    <div class="col-md-auto">
-      <b>4. {{pytania.4}}</b>
+<div class="carousel-item">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="text-center">
+                        <div class="col-md-auto">
+                            <h3><b>4. {{pytania.4}}</b></h3>
     </div>
   </div>
   <div class="row justify-content-md-center mt-3">
@@ -202,39 +323,44 @@
               <tr>
                   <td>1</td>
                   <td>konieczność skrócenia czasu pracy lub innych czynności</td>
-                  <td><input class="form-check-input" type="radio" name="skrocenie_pracy" id="skrocenie_pracy-1" value="1" required></td>
+                  <td><input class="form-check-input" type="radio" name="skrocenie_pracy" id="skrocenie_pracy-1" value="1"></td>
                   <td><input class="form-check-input" type="radio" name="skrocenie_pracy" id="skrocenie_pracy-2" value="2"></td>
               </tr>
               <tr>
                   <td>2</td>
                   <td>gorsze samopoczucie niż oczekiwałeś(-aś)</td>
-                  <td><input class="form-check-input" type="radio" name="gorsze_samopoczucie" id="gorsze_samopoczucie-1" value="1" required></td>
+                  <td><input class="form-check-input" type="radio" name="gorsze_samopoczucie" id="gorsze_samopoczucie-1" value="1"></td>
                   <td><input class="form-check-input" type="radio" name="gorsze_samopoczucie" id="gorsze_samopoczucie-2" value="2"></td>
               </tr>
               <tr>
                   <td>3</td>
                   <td>ograniczenie w rodzaju pracy lub innych czynności</td>
-                  <td><input class="form-check-input" type="radio" name="ograniczenie_czynnosci" id="ograniczenie_czynnosci-1" value="1" required></td>
+                  <td><input class="form-check-input" type="radio" name="ograniczenie_czynnosci" id="ograniczenie_czynnosci-1" value="1"></td>
                   <td><input class="form-check-input" type="radio" name="ograniczenie_czynnosci" id="ograniczenie_czynnosci-2" value="2"></td>
               </tr>
               <tr>
                   <td>4</td>
                   <td>wystąpienie utrudnień w wykonywanej pracy lub innych czynności</td>
-                  <td><input class="form-check-input" type="radio" name="utrudnienie_czynnosci" id="utrudnienie_czynnosci-1" value="1" required></td>
+                  <td><input class="form-check-input" type="radio" name="utrudnienie_czynnosci" id="utrudnienie_czynnosci-1" value="1"></td>
                   <td><input class="form-check-input" type="radio" name="utrudnienie_czynnosci" id="utrudnienie_czynnosci-2" value="2"></td>
               </tr>
             </tbody>
           </table>
     </div>
   </div>
-  <div class="row justify-content-md-center mt-3">
-    <div class="col-md-auto">
-      <b>5. {{pytania.5}}</b>
+                    </div>
+                </div>
+            </div>
     </div>
-  </div>
-  <div class="row justify-content-md-center mt-3">
-    <div class="col-md-auto">
-          <table class="table">
+  <div class="carousel-item">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="text-center">
+                        <div class="col-md-auto">
+                            <h3><b>5. {{pytania.5}}</b></h3>
+                            <div class="table-container">
+                                      <table class="table">
             <thead class="table-dark">
               <tr>
                 <th>#</th>
@@ -247,124 +373,192 @@
               <tr>
                   <td>1</td>
                   <td>skrócenie czasu wykonywanej pracy lub innej aktywności</td>
-                  <td><input class="form-check-input" type="radio" name="emocje_skrocenie_pracy" id="emocje_skrocenie_pracy-1" value="1" required></td>
+                  <td><input class="form-check-input" type="radio" name="emocje_skrocenie_pracy" id="emocje_skrocenie_pracy-1" value="1"></td>
                   <td><input class="form-check-input" type="radio" name="emocje_skrocenie_pracy" id="emocje_skrocenie_pracy-2" value="2"></td>
               </tr>
               <tr>
                   <td>2</td>
                   <td>osiągnięcia (rezultaty) mniejsze, niż oczekiwałbyś(-abyś)</td>
-                  <td><input class="form-check-input" type="radio" name="emocje_rezultaty" id="emocje_rezultaty-1" value="1" required></td>
+                  <td><input class="form-check-input" type="radio" name="emocje_rezultaty" id="emocje_rezultaty-1" value="1"></td>
                   <td><input class="form-check-input" type="radio" name="emocje_rezultaty" id="emocje_rezultaty-2" value="2"></td>
               </tr>
               <tr>
                   <td>3</td>
                   <td>niemożność wykonywania pracy lub innej czynności tak staranie jak zwykle</td>
-                  <td><input class="form-check-input" type="radio" name="emocje_niemoznosc" id="emocje_niemoznosc-1" value="1" required></td>
+                  <td><input class="form-check-input" type="radio" name="emocje_niemoznosc" id="emocje_niemoznosc-1" value="1"></td>
                   <td><input class="form-check-input" type="radio" name="emocje_niemoznosc" id="emocje_niemoznosc-2" value="2"></td>
               </tr>
             </tbody>
           </table>
-    </div>
+                            </div>
+        </div>
+                        </div>
+                </div>
+            </div>
+        </div>
   </div>
-  <div class="row justify-content-md-center mt-3">
-    <div class="col-md-auto">
-      <b>6. {{pytania.6}}</b>
+  <div class="carousel-item">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="d-flex justify-content-center">
+                        <div class="row">
+                          <h3><b>6. {{pytania.6}}</b></h3>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <div class="row">
+                        <div class="form-group">
+                        <div class="form-check">
+                              <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="zwyczajne_czynnosci" id="zwyczajne_czynnosci-1" value="1">
+                                <label class="form-check-label" for="zwyczajne_czynnosci-1">Nie, wcale</label>
+                              </div>
+                            </div>
+                            <div class="form-check">
+                              <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="zwyczajne_czynnosci" id="zwyczajne_czynnosci-2" value="2">
+                                <label class="form-check-label" for="zwyczajne_czynnosci-2">Rzadko</label>
+                              </div>
+                            </div>
+                            <div class="form-check">
+                              <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="zwyczajne_czynnosci" id="zwyczajne_czynnosci-3" value="3">
+                                <label class="form-check-label" for="zwyczajne_czynnosci-3">Czasami</label>
+                              </div>
+                            </div>
+                            <div class="form-check">
+                              <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="zwyczajne_czynnosci" id="zwyczajne_czynnosci-4" value="4">
+                                <label class="form-check-label" for="zwyczajne_czynnosci-4">Nawet bardzo</label>
+                              </div>
+                            </div>
+                            <div class="form-check">
+                              <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="zwyczajne_czynnosci" id="zwyczajne_czynnosci-5" value="5">
+                                <label class="form-check-label" for="zwyczajne_czynnosci-5">Bardzo duży</label>
+                              </div>
+                            </div>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
-  <div class="row justify-content-md-center mt-3">
-    <div class="col-md-auto">
-      <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="zwyczajne_czynnosci" id="zwyczajne_czynnosci-1" value="1" required>
-        <label class="form-check-label" for="zwyczajne_czynnosci-1">Nie, wcale</label>
       </div>
-      <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="zwyczajne_czynnosci" id="zwyczajne_czynnosci-2" value="2">
-        <label class="form-check-label" for="zwyczajne_czynnosci-2">Rzadko</label>
-      </div>
-      <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="zwyczajne_czynnosci" id="zwyczajne_czynnosci-3" value="3">
-        <label class="form-check-label" for="zwyczajne_czynnosci-3">Czasami</label>
-      </div>
-      <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="zwyczajne_czynnosci" id="zwyczajne_czynnosci-4" value="4">
-        <label class="form-check-label" for="zwyczajne_czynnosci-4">Nawet bardzo</label>
-      </div>
-      <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="zwyczajne_czynnosci" id="zwyczajne_czynnosci-5" value="5">
-        <label class="form-check-label" for="zwyczajne_czynnosci-5">Bardzo duży</label>
-      </div>
+      <div class="carousel-item">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="d-flex justify-content-center">
+                        <div class="row">
+                          <h3><b>7. {{pytania.7}}</b></h3>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <div class="row">
+                        <div class="form-group">
+                        <div class="form-check">
+                              <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="bol_czestosc" id="bol_czestosc-1" value="1">
+                                <label class="form-check-label" for="bol_czestosc-1">Nigdy</label>
+                              </div>
+                        </div>
+                        <div class="form-check">
+                              <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="bol_czestosc" id="bol_czestosc-2" value="2">
+                                <label class="form-check-label" for="bol_czestosc-2">Bardzo rzadko</label>
+                              </div>
+                        </div>
+                        <div class="form-check">
+                              <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="bol_czestosc" id="bol_czestosc-3" value="3">
+                                <label class="form-check-label" for="bol_czestosc-3">Rzadko</label>
+                              </div>
+                            </div>
+                        <div class="form-check">
+                              <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="bol_czestosc" id="bol_czestosc-4" value="4">
+                                <label class="form-check-label" for="bol_czestosc-4">Wyjątkowo</label>
+                              </div>
+                        </div>
+                        <div class="form-check">
+                              <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="bol_czestosc" id="bol_czestosc-5" value="5">
+                                <label class="form-check-label" for="bol_czestosc-5">Często</label>
+                              </div>
+                        </div>
+                            <div class="form-check">
+                              <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="bol_czestosc" id="bol_czestosc-6" value="6">
+                                <label class="form-check-label" for="bol_czestosc-6">Bardzo często</label>
+                              </div>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
-  <div class="row justify-content-md-center mt-3">
-    <div class="col-md-auto">
-      <b>7. {{pytania.7}}</b>
+          </div>
+    <div class="carousel-item">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="d-flex justify-content-center">
+                        <div class="row">
+                          <h3><b>8. {{pytania.8}}</b></h3>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <div class="row">
+                        <div class="form-group">
+                        <div class="form-check">
+                              <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="bol_praca" id="bol_praca-1" value="1">
+                                <label class="form-check-label" for="bol_praca-1">Wcale</label>
+                              </div>
+                        </div>
+                            <div class="form-check">
+                              <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="bol_praca" id="bol_praca-2" value="2">
+                                <label class="form-check-label" for="bol_praca-2">Trochę</label>
+                              </div>
+                                </div>
+                        <div class="form-check">
+                              <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="bol_praca" id="bol_praca-3" value="3">
+                                <label class="form-check-label" for="bol_praca-3">Średnio</label>
+                              </div>
+                        </div>
+                            <div class="form-check">
+                              <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="bol_praca" id="bol_praca-4" value="4">
+                                <label class="form-check-label" for="bol_praca-4">Nawet bardzo</label>
+                              </div>
+                        </div>
+                            <div class="form-check">
+                              <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="bol_praca" id="bol_praca-5" value="5">
+                                <label class="form-check-label" for="bol_praca-5">Bardzo</label>
+                              </div>
+                                </div>
+                            </div>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
-  <div class="row justify-content-md-center mt-3">
-    <div class="col-md-auto">
-      <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="bol_czestosc" id="bol_czestosc-1" value="1" required>
-        <label class="form-check-label" for="bol_czestosc-1">Nigdy</label>
-      </div>
-      <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="bol_czestosc" id="bol_czestosc-2" value="2">
-        <label class="form-check-label" for="bol_czestosc-2">Bardzo rzadko</label>
-      </div>
-      <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="bol_czestosc" id="bol_czestosc-3" value="3">
-        <label class="form-check-label" for="bol_czestosc-3">Rzadko</label>
-      </div>
-      <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="bol_czestosc" id="bol_czestosc-4" value="4">
-        <label class="form-check-label" for="bol_czestosc-4">Wyjątkowo</label>
-      </div>
-      <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="bol_czestosc" id="bol_czestosc-5" value="5">
-        <label class="form-check-label" for="bol_czestosc-5">Często</label>
-      </div>
-      <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="bol_czestosc" id="bol_czestosc-6" value="6">
-        <label class="form-check-label" for="bol_czestosc-6">Bardzo często</label>
-      </div>
-    </div>
-  </div>
-  <div class="row justify-content-md-center mt-3">
-    <div class="col-md-auto">
-      <b>8. {{pytania.8}}</b>
-    </div>
-  </div>
-  <div class="row justify-content-md-center mt-3">
-    <div class="col-md-auto">
-      <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="bol_praca" id="bol_praca-1" value="1" required>
-        <label class="form-check-label" for="bol_praca-1">Wcale</label>
-      </div>
-      <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="bol_praca" id="bol_praca-2" value="2">
-        <label class="form-check-label" for="bol_praca-2">Trochę</label>
-      </div>
-      <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="bol_praca" id="bol_praca-3" value="3">
-        <label class="form-check-label" for="bol_praca-3">Średnio</label>
-      </div>
-      <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="bol_praca" id="bol_praca-4" value="4">
-        <label class="form-check-label" for="bol_praca-4">Nawet bardzo</label>
-      </div>
-      <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="bol_praca" id="bol_praca-5" value="5">
-        <label class="form-check-label" for="bol_praca-5">Bardzo</label>
-      </div>
-    </div>
-  </div>
-  <div class="row justify-content-md-center mt-3">
-    <div class="col-md-auto">
-      <b>9. {{pytania.9}}</b>
-    </div>
-  </div>
-  <div class="row justify-content-md-center mt-3">
-    <div class="col-md-auto">
-          <table class="table">
+  <div class="carousel-item">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="text-center">
+                        <div class="col-md-auto">
+                            <h3><b>9. {{pytania.9}}</b></h3>
+                            <div class="table-container">
+                                        <table class="table">
             <thead class="table-dark">
               <tr>
                 <th>#</th>
@@ -381,7 +575,7 @@
               <tr>
                   <td>1</td>
                   <td>byłeś(-aś) pełen(-na) animuszu</td>
-                  <td><input class="form-check-input" type="radio" name="animusz" id="animusz-1" value="1" required></td>
+                  <td><input class="form-check-input" type="radio" name="animusz" id="animusz-1" value="1"></td>
                   <td><input class="form-check-input" type="radio" name="animusz" id="animusz-2" value="2"></td>
                   <td><input class="form-check-input" type="radio" name="animusz" id="animusz-3" value="3"></td>
                   <td><input class="form-check-input" type="radio" name="animusz" id="animusz-4" value="4"></td>
@@ -391,7 +585,7 @@
               <tr>
                   <td>2</td>
                   <td>byłeś(-aś) bardzo zdenerwowany</td>
-                  <td><input class="form-check-input" type="radio" name="zdenerwowanie" id="zdenerwowanie-1" value="1" required></td>
+                  <td><input class="form-check-input" type="radio" name="zdenerwowanie" id="zdenerwowanie-1" value="1"></td>
                   <td><input class="form-check-input" type="radio" name="zdenerwowanie" id="zdenerwowanie-2" value="2"></td>
                   <td><input class="form-check-input" type="radio" name="zdenerwowanie" id="zdenerwowanie-3" value="3"></td>
                   <td><input class="form-check-input" type="radio" name="zdenerwowanie" id="zdenerwowanie-4" value="4"></td>
@@ -401,7 +595,7 @@
               <tr>
                   <td>3</td>
                   <td> czułeś(-aś) się nic nie wart(-a) i nic nie było w stanie cię pocieszyć</td>
-                  <td><input class="form-check-input" type="radio" name="brak_wartosci" id="brak_wartosci-1" value="1" required></td>
+                  <td><input class="form-check-input" type="radio" name="brak_wartosci" id="brak_wartosci-1" value="1"></td>
                   <td><input class="form-check-input" type="radio" name="brak_wartosci" id="brak_wartosci-2" value="2"></td>
                   <td><input class="form-check-input" type="radio" name="brak_wartosci" id="brak_wartosci-3" value="3"></td>
                   <td><input class="form-check-input" type="radio" name="brak_wartosci" id="brak_wartosci-4" value="4"></td>
@@ -411,17 +605,48 @@
               <tr>
                   <td>4</td>
                   <td>byłeś(-aś) wyciszony(-a) i spokojny(-a)</td>
-                  <td><input class="form-check-input" type="radio" name="wyciszenie" id="wyciszenie-1" value="1" required></td>
+                  <td><input class="form-check-input" type="radio" name="wyciszenie" id="wyciszenie-1" value="1"></td>
                   <td><input class="form-check-input" type="radio" name="wyciszenie" id="wyciszenie-2" value="2"></td>
                   <td><input class="form-check-input" type="radio" name="wyciszenie" id="wyciszenie-3" value="3"></td>
                   <td><input class="form-check-input" type="radio" name="wyciszenie" id="wyciszenie-4" value="4"></td>
                   <td><input class="form-check-input" type="radio" name="wyciszenie" id="wyciszenie-5" value="5"></td>
                   <td><input class="form-check-input" type="radio" name="wyciszenie" id="wyciszenie-6" value="6"></td>
               </tr>
+            </tbody>
+          </table>
+                        </div>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="carousel-item">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="text-center">
+                        <div class="col-md-auto">
+                            <h3><b>9. {{pytania.9}}</b></h3>
+                            <div class="table-container">
+                                        <table class="table">
+            <thead class="table-dark">
+              <tr>
+                <th>#</th>
+                <th></th>
+                <th>Cały czas</th>
+                <th>Dużo czasu</th>
+                <th>Mało czasu</th>
+                <th>Większość czasu</th>
+                <th>Jakiś czasu</th>
+                <th>Wcale</th>
+               </tr>
+            </thead>
+            <tbody>
             <tr>
                   <td>5</td>
                   <td>byłeś(-aś) pełen(-na) energii</td>
-                  <td><input class="form-check-input" type="radio" name="energicznosc" id="energicznosc-1" value="1" required></td>
+                  <td><input class="form-check-input" type="radio" name="energicznosc" id="energicznosc-1" value="1"></td>
                   <td><input class="form-check-input" type="radio" name="energicznosc" id="energicznosc-2" value="2"></td>
                   <td><input class="form-check-input" type="radio" name="energicznosc" id="energicznosc-3" value="3"></td>
                   <td><input class="form-check-input" type="radio" name="energicznosc" id="energicznosc-4" value="4"></td>
@@ -431,7 +656,7 @@
             <tr>
                   <td>6</td>
                   <td>byłeś(-aś) załamany(-a) i smutny(-a)</td>
-                  <td><input class="form-check-input" type="radio" name="smutek" id="smutek-1" value="1" required></td>
+                  <td><input class="form-check-input" type="radio" name="smutek" id="smutek-1" value="1"></td>
                   <td><input class="form-check-input" type="radio" name="smutek" id="smutek-2" value="2"></td>
                   <td><input class="form-check-input" type="radio" name="smutek" id="smutek-3" value="3"></td>
                   <td><input class="form-check-input" type="radio" name="smutek" id="smutek-4" value="4"></td>
@@ -441,7 +666,7 @@
             <tr>
                   <td>7</td>
                   <td>czułeś(-aś) się zmarnowany(-a)</td>
-                  <td><input class="form-check-input" type="radio" name="zmarnowanie" id="zmarnowanie-1" value="1" required></td>
+                  <td><input class="form-check-input" type="radio" name="zmarnowanie" id="zmarnowanie-1" value="1"></td>
                   <td><input class="form-check-input" type="radio" name="zmarnowanie" id="zmarnowanie-2" value="2"></td>
                   <td><input class="form-check-input" type="radio" name="zmarnowanie" id="zmarnowanie-3" value="3"></td>
                   <td><input class="form-check-input" type="radio" name="zmarnowanie" id="zmarnowanie-4" value="4"></td>
@@ -451,7 +676,7 @@
             <tr>
                   <td>8</td>
                   <td>byłeś(-aś) szczęśliwy(-a)</td>
-                  <td><input class="form-check-input" type="radio" name="szczeliwosc" id="szczeliwosc-1" value="1" required></td>
+                  <td><input class="form-check-input" type="radio" name="szczeliwosc" id="szczeliwosc-1" value="1"></td>
                   <td><input class="form-check-input" type="radio" name="szczeliwosc" id="szczeliwosc-2" value="2"></td>
                   <td><input class="form-check-input" type="radio" name="szczeliwosc" id="szczeliwosc-3" value="3"></td>
                   <td><input class="form-check-input" type="radio" name="szczeliwosc" id="szczeliwosc-4" value="4"></td>
@@ -461,7 +686,7 @@
             <tr>
                   <td>9</td>
                   <td>byłeś(-aś) zmęczony(-a)</td>
-                  <td><input class="form-check-input" type="radio" name="zmeczenie" id="zmeczenie-1" value="1" required></td>
+                  <td><input class="form-check-input" type="radio" name="zmeczenie" id="zmeczenie-1" value="1"></td>
                   <td><input class="form-check-input" type="radio" name="zmeczenie" id="zmeczenie-2" value="2"></td>
                   <td><input class="form-check-input" type="radio" name="zmeczenie" id="zmeczenie-3" value="3"></td>
                   <td><input class="form-check-input" type="radio" name="zmeczenie" id="zmeczenie-4" value="4"></td>
@@ -470,45 +695,71 @@
               </tr>
             </tbody>
           </table>
+                        </div>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
-  <div class="row justify-content-md-center mt-3">
-    <div class="col-md-auto">
-      <b>10. {{pytania.10}}</b>
+        <div class="carousel-item">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="d-flex justify-content-center">
+                        <div class="row">
+                          <h3><b>10. {{pytania.10}}</b></h3>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <div class="row">
+                        <div class="form-group">
+                        <div class="form-check">
+                              <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="zdrowie_towarzyskosc" id="zdrowie_towarzyskosc-1" value="1">
+                                <label class="form-check-label" for="zdrowie_towarzyskosc-1">Cały czas</label>
+                              </div>
+                        </div>
+                        <div class="form-check">
+                              <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="zdrowie_towarzyskosc" id="zdrowie_towarzyskosc-2" value="2">
+                                <label class="form-check-label" for="zdrowie_towarzyskosc-2">Większość czasu</label>
+                              </div>
+                        </div>
+                        <div class="form-check">
+                              <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="zdrowie_towarzyskosc" id="zdrowie_towarzyskosc-3" value="3">
+                                <label class="form-check-label" for="zdrowie_towarzyskosc-3">Część czasu</label>
+                              </div>
+                        </div>
+                        <div class="form-check">
+                              <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="zdrowie_towarzyskosc" id="zdrowie_towarzyskosc-4" value="4">
+                                <label class="form-check-label" for="zdrowie_towarzyskosc-4">Mało czasu</label>
+                              </div>
+                        </div>
+                        <div class="form-check">
+                              <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="zdrowie_towarzyskosc" id="zdrowie_towarzyskosc-5" value="5">
+                                <label class="form-check-label" for="zdrowie_towarzyskosc-5">Wcale</label>
+                              </div>
+                            </div>
+                            </div>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
-  <div class="row justify-content-md-center mt-3">
-    <div class="col-md-auto">
-      <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="zdrowie_towarzyskosc" id="zdrowie_towarzyskosc-1" value="1" required>
-        <label class="form-check-label" for="zdrowie_towarzyskosc-1">Cały czas</label>
-      </div>
-      <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="zdrowie_towarzyskosc" id="zdrowie_towarzyskosc-2" value="2">
-        <label class="form-check-label" for="zdrowie_towarzyskosc-2">Większość czasu</label>
-      </div>
-      <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="zdrowie_towarzyskosc" id="zdrowie_towarzyskosc-3" value="3">
-        <label class="form-check-label" for="zdrowie_towarzyskosc-3">Część czasu</label>
-      </div>
-      <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="zdrowie_towarzyskosc" id="zdrowie_towarzyskosc-4" value="4">
-        <label class="form-check-label" for="zdrowie_towarzyskosc-4">Mało czasu</label>
-      </div>
-      <div class="form-check form-check-inline">
-        <input class="form-check-input" type="radio" name="zdrowie_towarzyskosc" id="zdrowie_towarzyskosc-5" value="5">
-        <label class="form-check-label" for="zdrowie_towarzyskosc-5">Wcale</label>
-      </div>
-    </div>
-  </div>
-  <div class="row justify-content-md-center mt-3">
-    <div class="col-md-auto">
-      <b>11. {{pytania.11}}</b>
-    </div>
-  </div>
-  <div class="row justify-content-md-center mt-3">
-    <div class="col-md-auto">
-          <table class="table">
+      <div class="carousel-item">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="text-center">
+                        <div class="col-md-auto">
+                            <h3><b>11. {{pytania.11}}</b></h3>
+                            <div class="table-container">
+                                        <table class="table">
             <thead class="table-dark">
               <tr>
                 <th>#</th>
@@ -524,7 +775,7 @@
               <tr>
                   <td>1</td>
                   <td>uważam, że stan mojego zdrowia jest lepszy niż innych osób, które znam</td>
-                  <td><input class="form-check-input" type="radio" name="stan_zdrowia_inni" id="stan_zdrowia_inni-1" value="1" required></td>
+                  <td><input class="form-check-input" type="radio" name="stan_zdrowia_inni" id="stan_zdrowia_inni-1" value="1"></td>
                   <td><input class="form-check-input" type="radio" name="stan_zdrowia_inni" id="stan_zdrowia_inni-2" value="2"></td>
                   <td><input class="form-check-input" type="radio" name="stan_zdrowia_inni" id="stan_zdrowia_inni-3" value="3"></td>
                   <td><input class="form-check-input" type="radio" name="stan_zdrowia_inni" id="stan_zdrowia_inni-4" value="4"></td>
@@ -533,7 +784,7 @@
               <tr>
                   <td>2</td>
                   <td>jestem zdrowszy od innych osób, które znam</td>
-                  <td><input class="form-check-input" type="radio" name="zdrowotnosc_inni" id="zdrowotnosc_inni-1" value="1" required></td>
+                  <td><input class="form-check-input" type="radio" name="zdrowotnosc_inni" id="zdrowotnosc_inni-1" value="1"></td>
                   <td><input class="form-check-input" type="radio" name="zdrowotnosc_inni" id="zdrowotnosc_inni-2" value="2"></td>
                   <td><input class="form-check-input" type="radio" name="zdrowotnosc_inni" id="zdrowotnosc_inni-3" value="3"></td>
                   <td><input class="form-check-input" type="radio" name="zdrowotnosc_inni" id="zdrowotnosc_inni-4" value="4"></td>
@@ -542,7 +793,7 @@
               <tr>
                   <td>3</td>
                   <td>przypuszczam, że stan mojego zdrowia ulegnie pogorszeniu</td>
-                  <td><input class="form-check-input" type="radio" name="pogorszenie_zdrowia" id="pogorszenie_zdrowia-1" value="1" required></td>
+                  <td><input class="form-check-input" type="radio" name="pogorszenie_zdrowia" id="pogorszenie_zdrowia-1" value="1"></td>
                   <td><input class="form-check-input" type="radio" name="pogorszenie_zdrowia" id="pogorszenie_zdrowia-2" value="2"></td>
                   <td><input class="form-check-input" type="radio" name="pogorszenie_zdrowia" id="pogorszenie_zdrowia-3" value="3"></td>
                   <td><input class="form-check-input" type="radio" name="pogorszenie_zdrowia" id="pogorszenie_zdrowia-4" value="4"></td>
@@ -551,7 +802,7 @@
               <tr>
                   <td>4</td>
                   <td>stan mojego zdrowia jest doskonały</td>
-                  <td><input class="form-check-input" type="radio" name="doskonalosc_zdrowia" id="doskonalosc_zdrowia-1" value="1" required></td>
+                  <td><input class="form-check-input" type="radio" name="doskonalosc_zdrowia" id="doskonalosc_zdrowia-1" value="1"></td>
                   <td><input class="form-check-input" type="radio" name="doskonalosc_zdrowia" id="doskonalosc_zdrowia-2" value="2"></td>
                   <td><input class="form-check-input" type="radio" name="doskonalosc_zdrowia" id="doskonalosc_zdrowia-3" value="3"></td>
                   <td><input class="form-check-input" type="radio" name="doskonalosc_zdrowia" id="doskonalosc_zdrowia-4" value="4"></td>
@@ -559,14 +810,70 @@
               </tr>
             </tbody>
           </table>
+                        </div>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+      <div class="carousel-item">
+        <div class="container">
+            <div class="row justify-content-md-center mt-3">
+                <div class="col-md-auto">
+                    <h3>W celu wysłania wypełnionej ankiety naciśnij poniższy przycisk.</h3>
+                    <h4>Jeśli po kliknięciu przycisku "Wyślij" zostajesz przekierowany z powrotem do pytania, może to sugerować, że brakuje odpowiedzi na to pytanie.</h4>
+                </div>
+              </div>
+              <div class="row justify-content-md-center mt-3">
+                <div class="col-md-auto">
+                  <button type="submit" class="btn btn-primary btn-lg" id="submitBtn">Wyślij</button>
+                </div>
+              </div>
+            </div>
+        </div>
   </div>
-  <div class="row justify-content-md-center mt-3">
-    <div class="col-md-auto">
-      <button type="submit" class="btn btn-primary">Wyślij</button>
-    </div>
-  </div>
+    <button class="carousel-control-prev btn-dark" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next btn-dark" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+    </button>
+</div>
 </div>
 </form>
-<br>
+
+
+
+<script>
+$(document).ready(function() {
+  $('#submitBtn').click(function(event) {
+    var allRadioInputsAreChecked = true;
+    // loop through all radio inputs with a name attribute
+    $('input[type="radio"][name]').each(function() {
+      // get the name of the current group of radio inputs
+      var groupName = $(this).attr('name');
+      // check if at least one radio input in the current group is checked
+      if (!$('input[type="radio"][name="' + groupName + '"]:checked').length) {
+        // if not, prevent the form from submitting
+        event.preventDefault();
+        // find the index of the slide that contains the current radio input
+        var slideIndex = $(this).closest('.carousel-item').index();
+        // navigate to the slide with the unchecked radio input
+        $('.carousel').carousel(slideIndex);
+        // break out of the loop
+        allRadioInputsAreChecked = false;
+        return false;
+      }
+    });
+  });
+});
+
+
+
+</script>
+
+</body>
 {% endblock %}

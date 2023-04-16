@@ -5,7 +5,7 @@ pytania = {1:"Generalnie możesz powiedzieć, że stan twojego zdrowia jest:",
            3:"Poniżej wymieniono w punktach czynności wykonywane zazwyczaj w ciągu dnia. Czy aktualnie Twoje zdrowie ogranicza Twoje możliwości ich wykonania? Jeżeli tak, to jak bardzo?",
            4:"Czy w ostatnim miesiącu miałeś(-aś) problemy z pracą lub codzienną aktywnością, które wynikały ze stanu zdrowia i powodowały:",
            5:"Czy w ciągu ostatniego miesiąca miałeś(-aś) problemy związane z wykonywaną pracą lub codziennymi czynnościami wynikające z problemów emocjonalnych (np. poczucie depresji, zdenerwowanie)?",
-           6:"Czy w ciągu ostatniego miesiąca twoje problemy zdrowotne lub emocjonalne miały wpływ na zwyczajne czynności, kontakty z rodziną, przyjaciółmi, sąsiadami lub innymi grupami?",
+           6:"Czy w ciągu ostatniego miesiąca twoje problemy zdrowotne lub emocjonalne miały wpływ na zwyczajne czynności, kontakty z rodziną, przyjaciółmi, sąsiadami lub innymi grupami?",
            7:"Ile razy odczuwałeś(-aś) ból w ciągu ostatniego miesiąca?",
            8:"Jak często w ciągu ostatniego miesiąca ból zakłócał Twoją normalną pracę (zawodową i domową)?",
            9:"""Poniższe pytania dotyczą Twojego samopoczucia w ciągu ostatniego miesiąca. Na każde pytanie proszę udzielić
